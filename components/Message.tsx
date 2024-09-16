@@ -12,12 +12,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { useUser } from "@/lib/store/user";
-import { DeleteAlert } from "./MessageAction";
+import { DeleteAlert, EditAlert } from "./MessageAction";
 import { useMessage } from "@/lib/store/messages";
 
 export default function Message({ index, message }: any) {
   const user = useUser((state) => state.user);
-  const [open, setOpen] = React.useState(false);
 
   return (
     <div className="flex gap-4" key={index}>
@@ -37,6 +36,9 @@ export default function Message({ index, message }: any) {
             <h1 className="text-sm text-gray-400">
               {new Date(message.created_at).toDateString()}
             </h1>
+            {message.is_edit && (
+              <h1 className="text-sm text-gray-400">edited</h1>
+            )}
           </div>
           {user?.id === message.users.id && <MessageMenu message={message} />}
         </div>
@@ -48,6 +50,8 @@ export default function Message({ index, message }: any) {
 
 const MessageMenu = ({ message }: any) => {
   const [isDeleteAlertOpen, setDeleteAlertOpen] = React.useState(false);
+  const [isEditAlertOpen, setEditAlertOpen] = React.useState(false);
+
   const setActionMessage = useMessage((state: any) => state.setActionMessage);
 
   return (
@@ -60,9 +64,8 @@ const MessageMenu = ({ message }: any) => {
           <DropdownMenuLabel>Action</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            onSelect={() => {
-              /* Add edit logic here */
-            }}
+            onSelect={() => setEditAlertOpen(true)}
+            onClick={() => setActionMessage(message)}
             className="cursor-pointer"
           >
             Edit
@@ -80,6 +83,7 @@ const MessageMenu = ({ message }: any) => {
         isOpen={isDeleteAlertOpen}
         onOpenChange={setDeleteAlertOpen}
       />
+      <EditAlert isOpen={isEditAlertOpen} onOpenChange={setEditAlertOpen} />
     </>
   );
 };

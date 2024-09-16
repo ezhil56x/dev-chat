@@ -15,4 +15,17 @@ export const useMessage = create((set) => ({
       };
     });
   },
+  optimisticUpdateMessage: (updateMessage: any) => {
+    set((state: any) => {
+      return {
+        messages: state.messages.filter((message: any) => {
+          if (message.id === updateMessage.id) {
+            message.text = updateMessage.text;
+            message.is_edit = updateMessage.is_edit;
+          }
+          return message;
+        }),
+      };
+    });
+  },
 }));
