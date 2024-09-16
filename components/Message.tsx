@@ -22,17 +22,17 @@ export default function Message({ index, message }: any) {
     <div className="flex gap-4" key={index}>
       <div>
         <Image
-          src={message.users.avatar_url}
+          src={message.users?.avatar_url}
           width={40}
           height={40}
-          alt={message.users.display_name}
+          alt={message.users?.display_name}
           className="rounded-full"
         />
       </div>
       <div className="flex-1">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <h1 className="font-bold">{message.users.display_name}</h1>
+            <h1 className="font-bold">{message.users?.display_name}</h1>
             <h1 className="text-sm text-gray-400">
               {new Date(message.created_at).toDateString()}
             </h1>
@@ -40,7 +40,7 @@ export default function Message({ index, message }: any) {
               <h1 className="text-sm text-gray-400">edited</h1>
             )}
           </div>
-          {user?.id === message.users.id && <MessageMenu message={message} />}
+          {user?.id === message.users?.id && <MessageMenu message={message} />}
         </div>
         <p className="text-gray-300">{message.text}</p>
       </div>

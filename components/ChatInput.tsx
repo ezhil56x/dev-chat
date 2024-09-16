@@ -10,6 +10,7 @@ import { useMessage } from "@/lib/store/messages";
 export default function ChatInput() {
   const user = useUser((state) => state.user);
   const addMessage = useMessage((state: any) => state.addMessage);
+  const setOptimisticIds = useMessage((state: any) => state.setOptimisticIds);
 
   const supabase = supabaseBrowser();
 
@@ -33,6 +34,7 @@ export default function ChatInput() {
     };
 
     addMessage(newMessage);
+    setOptimisticIds(newMessage.id);
 
     const { error } = await supabase.from("messages").insert({ text });
 

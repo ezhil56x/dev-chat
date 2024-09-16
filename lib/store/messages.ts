@@ -2,9 +2,14 @@ import { create } from "zustand";
 
 export const useMessage = create((set) => ({
   messages: [],
+  optimisticIds: [],
   actionMessage: undefined,
-  addMessage: (message: any) =>
-    set((state: any) => ({ messages: [...state.messages, message] })),
+  addMessage: (newMessage: any) =>
+    set((state: any) => ({
+      messages: [...state.messages, newMessage],
+    })),
+  setOptimisticIds: (id: string) =>
+    set((state: any) => ({ optimisticIds: [...state.optimisticIds, id] })),
   setActionMessage: (message: any) => set(() => ({ actionMessage: message })),
   optimisticDeleteMessage: (messageId: any) => {
     set((state: any) => {
