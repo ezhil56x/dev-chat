@@ -9,7 +9,7 @@ const space_Grotesk = Space_Grotesk({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Dev Chat",
   description:
-    "This is a chat application built with Next.js, Supabase, and Tailwind",
+    "This is a chat application built with Next.js, Supabase and Tailwind",
 };
 
 export default function RootLayout({
